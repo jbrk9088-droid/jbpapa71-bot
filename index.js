@@ -29,7 +29,15 @@ if(!text.startsWith(config.PREFIX)) return
 
 const command = text.slice(1).split(" ")[0]
 
-const folders = ["general","fun","ai","download","group","media"]
+const folders = [
+"general",
+"fun",
+"ai",
+"group",
+"media",
+"download",
+"tools"
+]
 
 for(const folder of folders){
 
