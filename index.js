@@ -8,7 +8,7 @@ const { state, saveCreds } = await useMultiFileAuthState("session")
 
 const sock = makeWASocket({
 auth: state,
-printQRInTerminal: true
+browser: ["JB PAPA 71", "Chrome", "1.0"]
 })
 
 sock.ev.on("creds.update", saveCreds)
