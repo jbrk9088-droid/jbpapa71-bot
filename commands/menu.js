@@ -1,47 +1,57 @@
-const { default: makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys")
-const config = require("./config")
+const config = require("../../config")
 
-async function startBot(){
+module.exports = async (sock,msg,from)=>{
 
-const { state, saveCreds } = await useMultiFileAuthState("session")
+sock.sendMessage(from,{
+image:{url:config.MENU_IMAGE},
+caption:`
 
-const sock = makeWASocket({
-auth: state,
-printQRInTerminal: true
+☠️ ${config.BOT_NAME}
+
+──── GENERAL ────
+.menu
+.ping
+.alive
+.owner
+
+──── FUN ────
+.joke
+.meme
+.fact
+.truth
+.dare
+
+──── AI ────
+.ai
+.gpt
+.chat
+
+──── DOWNLOAD ────
+.song
+.video
+.play
+.tomp3
+
+──── GROUP ────
+.tagall
+.kick
+.promote
+.demote
+
+──── MEDIA ────
+.sticker
+.wallpaper
+.anime
+.cat
+.dog
+
+📢 WhatsApp Channel
+${config.WHATSAPP_CHANNEL}
+
+💬 Telegram Group
+${config.TELEGRAM_GROUP}
+
+`
 })
 
-sock.ev.on("creds.update", saveCreds)
-
-sock.ev.on("messages.upsert", async ({messages}) => {
-
-const msg = messages[0]
-
-if(!msg.message) return
-
-const text = msg.message.conversation || msg.message.extendedTextMessage?.text
-
-if(!text) return
-
-const from = msg.key.remoteJid
-
-if(!text.startsWith(config.PREFIX)) return
-
-const command = text.slice(1).split(" ")[0]
-
-try{
-
-const cmd = require(`./commands/${command}.js`)
-
-cmd(sock,msg,from)
-
-}catch(e){
-
-sock.sendMessage(from,{text:"❌ Command not found"})
-
 }
-
-})
-
-}
-
-startBot()
