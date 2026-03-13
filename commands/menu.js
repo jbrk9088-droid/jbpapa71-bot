@@ -13,6 +13,10 @@ caption:`
 .ping
 .alive
 .owner
+.help
+.info
+.time
+.date
 
 ──── FUN ────
 .joke
@@ -20,30 +24,45 @@ caption:`
 .fact
 .truth
 .dare
+.roast
 
 ──── AI ────
 .ai
 .gpt
 .chat
+.code
 
 ──── DOWNLOAD ────
 .song
-.video
 .play
-.tomp3
+.video
+.ytmp3
+.ytmp4
 
 ──── GROUP ────
 .tagall
 .kick
 .promote
 .demote
+.antilink
+.welcome
 
 ──── MEDIA ────
 .sticker
+.toimg
 .wallpaper
 .anime
 .cat
 .dog
+
+──── TOOLS ────
+.ip
+.number
+.osint
+.shortlink
+.weather
+.news
+.translate
 
 📢 WhatsApp Channel
 ${config.WHATSAPP_CHANNEL}
