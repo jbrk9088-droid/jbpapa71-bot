@@ -1,6 +1,4 @@
 const { default: makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys")
-const fs = require("fs")
-const config = require("./config")
 
 async function startBot(){
 
@@ -13,6 +11,17 @@ browser: ["JB PAPA 71", "Chrome", "1.0"]
 
 sock.ev.on("creds.update", saveCreds)
 
+// YOUR NUMBER
+const phoneNumber = "584169861331"
+
+if(!sock.authState.creds.registered){
+
+const code = await sock.requestPairingCode(phoneNumber)
+
+console.log("Pairing Code:", code)
+
+}
+
 sock.ev.on("messages.upsert", async ({messages}) => {
 
 const msg = messages[0]
@@ -21,37 +30,9 @@ if(!msg.message) return
 
 const text = msg.message.conversation || msg.message.extendedTextMessage?.text
 
-if(!text) return
-
-const from = msg.key.remoteJid
-
-if(!text.startsWith(config.PREFIX)) return
-
-const command = text.slice(1).split(" ")[0]
-
-const folders = [
-"general",
-"fun",
-"ai",
-"group",
-"media",
-"download",
-"tools"
-]
-
-for(const folder of folders){
-
-try{
-
-const cmd = require(`./commands/${folder}/${command}.js`)
-
-return cmd(sock,msg,from)
-
-}catch{}
-
+if(text === ".ping"){
+sock.sendMessage(msg.key.remoteJid,{text:"🏓 Pong JB PAPA 71"})
 }
-
-sock.sendMessage(from,{text:"❌ Command not found"})
 
 })
 
